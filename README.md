@@ -1,0 +1,1 @@
+www.jornadatd.com.br

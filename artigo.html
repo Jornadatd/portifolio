@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Artigo - Jornada TD</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  
+  <!-- Estilos para imagens nos artigos -->
+  <style>
+    .article-content figure.image {
+      display: inline-block;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 5px;
+      margin: 1em 0;
+    }
+    .article-content figure.image img {
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .article-content figure.image figcaption {
+      margin: 8px 0 0;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.9em;
+    }
+    .article-content figure.image-style-align-left {
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      max-width: 50%;
+    }
+    .article-content figure.image-style-align-right {
+      float: right;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      max-width: 50%;
+    }
+    .article-content figure.image-style-align-center {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      max-width: 50%;
+    }
+    .article-content::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    /* Estilos para a barra de compartilhamento */
+    .share-bar {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .share-bar a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .share-bar a:hover {
+      transform: scale(1.1);
+    }
+
+    .share-bar .facebook {
+      background: #3b5998;
+    }
+
+    .share-bar .twitter {
+      background: #1da1f2;
+    }
+
+    .share-bar .linkedin {
+      background: #0077b5;
+    }
+
+    .share-bar .whatsapp {
+      background: #25d366;
+    }
+
+    @media (max-width: 768px) {
+      .share-bar {
+        position: fixed;
+        bottom: 20px;
+        top: auto;
+        right: 50%;
+        transform: translateX(50%);
+        flex-direction: row;
+        z-index: 1000;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="assets/img/profile-img.png" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="index.html">Jornada TD</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://wa.me/5511953979308?text=Ol%C3%A1,%20%20peguei%20seu%20n%C3%BAmero%20atrav%C3%A9s%20do%20site%20Jornada%20TD,%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
+          <a href="https://instagram.com/jornada_td?igshid=YmMyMTA2M2Y=" class="instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="index.html#inicio" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Início</span></a></li>
+          <li><a href="index.html#sobre" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Quem somos</span></a></li>
+          <li><a href="index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Soluções</span></a></li>
+          <li><a href="index.html#testimonials" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Serviços</span></a></li>
+          <li><a href="index.html#artigos" class="nav-link scrollto"><i class="bx bx-book-reader"></i> <span>Aprenda Conosco</span></a></li>
+          <li><a href="index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contato</span></a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div></div>
+          
+          <ol>
+            <li><a href="index.html">Home</a></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section class="inner-page">
+      <div class="container">
+        <article class="article-single">
+          <h1 id="artigo-heading" class="mb-4"></h1>
+          <div class="article-meta mb-4">
+            <span class="date"><i class="bi bi-calendar-event me-2"></i>Data de publicação: 2024</span>
+          </div>
+          <div id="artigo-img" class="article-img mb-4">
+            <!-- A imagem será inserida aqui dinamicamente -->
+          </div>
+          <div id="artigo-conteudo" class="article-content">
+            <!-- O conteúdo será inserido aqui dinamicamente -->
+          </div>
+          <!-- Barra de compartilhamento -->
+          <div class="share-bar">
+            <a href="#" class="facebook" onclick="compartilharFacebook()"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="twitter" onclick="compartilharTwitter()"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="linkedin" onclick="compartilharLinkedIn()"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="whatsapp" onclick="compartilharWhatsApp()"><i class="bi bi-whatsapp"></i></a>
+          </div>
+          <div class="article-footer mt-5">
+            <a href="index.html#artigos" class="btn btn-outline-primary">
+              <i class="bi bi-arrow-left me-2"></i>Voltar para Artigos
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iPortfolio</span></strong>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Dados dos artigos -->
+  <script src="assets/js/artigos.js"></script>
+
+  <!-- Script para carregar o artigo dinamicamente -->
+  <script>
+    // Função para carregar o artigo baseado no ID da URL
+    function carregarArtigo() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      
+      if (id && artigos[id]) {
+        const artigo = artigos[id];
+        document.getElementById('artigo-heading').textContent = artigo.titulo;
+        document.getElementById('artigo-img').innerHTML = `<img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid">`;
+        document.getElementById('artigo-conteudo').innerHTML = artigo.conteudo;
+        document.querySelector('.article-meta .date').innerHTML = `<i class="bi bi-calendar-event me-2"></i>Data de publicação: ${artigo.data}`;
+        document.title = `${artigo.titulo} - Jornada TD`;
+      } else {
+        // Redirecionar para a página inicial se o artigo não for encontrado
+        window.location.href = 'index.html#artigos';
+      }
+    }
+
+    // Carregar o artigo quando a página for carregada
+    window.addEventListener('load', carregarArtigo);
+
+    // Funções de compartilhamento
+    function compartilharFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const titulo = encodeURIComponent(document.getElementById('artigo-heading').textContent);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+
+    function compartilharTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const titulo = encodeURIComponent(document.getElementById('artigo-heading').textContent);
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${titulo}`, '_blank');
+    }
+
+    function compartilharLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      const titulo = encodeURIComponent(document.getElementById('artigo-heading').textContent);
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+    }
+
+    function compartilharWhatsApp() {
+      const url = encodeURIComponent(window.location.href);
+      const titulo = encodeURIComponent(document.getElementById('artigo-heading').textContent);
+      window.open(`https://api.whatsapp.com/send?text=${titulo}%20${url}`, '_blank');
+    }
+  </script>
+</body>
+</html> 
