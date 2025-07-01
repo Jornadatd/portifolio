@@ -256,31 +256,33 @@
       if (artigosCat.length === 0) return;
       const carrosselId = `swiper-categoria-${i}`;
       carrosseisDiv.innerHTML += `
-        <div class="categoria-titulo" style="font-weight: bold; color: #173b6c; font-size: 1.2rem;">${cat}</div>
-        <div class="artigos-slider swiper" style="padding: 0 40px;">
-          <div class="swiper-wrapper" id="artigos-container-${i}">
-            ${artigosCat.map(artigo => `
-              <div class="swiper-slide">
-                <div class="artigo-item px-4">
-                  <div class="artigo-img mb-4">
-                    <img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid" style="height: 180px; object-fit: cover; border-radius: 5px; width: 100%;">
-                  </div>
-                  <h3><a href="artigo.html?id=${artigo.id}">${artigo.titulo}</a></h3>
-                  <div class="artigo-meta mb-3 d-flex justify-content-between align-items-center flex-wrap">
-                    <div class="artigo-categorias">
-                      ${(artigo.categorias && artigo.categorias.length > 0) ? artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join('') : ''}
+        <div class="section-bg p-4 mb-5 rounded-3">
+          <div class="categoria-titulo" style="font-weight: bold; color: #173b6c; font-size: 1.2rem;">${cat}</div>
+          <div class="artigos-slider swiper" style="padding: 0 40px;">
+            <div class="swiper-wrapper" id="artigos-container-${i}">
+              ${artigosCat.map(artigo => `
+                <div class="swiper-slide">
+                  <div class="artigo-item px-4">
+                    <div class="artigo-img mb-4">
+                      <img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid" style="height: 180px; object-fit: cover; border-radius: 5px; width: 100%;">
                     </div>
-                    <span class="date text-end"><i class="bi bi-calendar-event me-2"></i>${artigo.data}</span>
+                    <h3><a href="artigo.html?id=${artigo.id}">${artigo.titulo}</a></h3>
+                    <div class="artigo-meta mb-3 d-flex justify-content-between align-items-center flex-wrap">
+                      <div class="artigo-categorias">
+                        ${(artigo.categorias && artigo.categorias.length > 0) ? artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join('') : ''}
+                      </div>
+                      <span class="date text-end"><i class="bi bi-calendar-event me-2"></i>${artigo.data}</span>
+                    </div>
+                    <p>${artigo.resumo}</p>
+                    <a href="artigo.html?id=${artigo.id}" class="btn btn-outline-primary">Leia mais</a>
                   </div>
-                  <p>${artigo.resumo}</p>
-                  <a href="artigo.html?id=${artigo.id}" class="btn btn-outline-primary">Leia mais</a>
                 </div>
-              </div>
-            `).join('')}
+              `).join('')}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" style="left: 0;"></div>
+            <div class="swiper-button-next" style="right: 0;"></div>
           </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev" style="left: 0;"></div>
-          <div class="swiper-button-next" style="right: 0;"></div>
         </div>
       `;
     });
