@@ -304,6 +304,11 @@ h6 {
   
   #inicio {
     background-position: right center;
+    min-height: 100vh;
+  }
+  
+  #inicio:before {
+    min-height: 100vh;
   }
 }
 
