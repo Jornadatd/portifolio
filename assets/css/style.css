@@ -1168,26 +1168,30 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  padding: 15px;
-  color: #f4f6fd;
-  font-size: 12px;
+  padding: 10px 0;
+  color: #c7cbe5;
+  font-size: 10px;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 300px;
   z-index: 9999;
   background: #040b14;
+  letter-spacing: 1.2px;
+  font-weight: 400;
+  opacity: 0.85;
 }
 
-#footer .copyright {
-  text-align: center;
-}
-
+#footer .copyright,
 #footer .credits {
-  padding-top: 5px;
   text-align: center;
-  font-size: 10px;
-  color: #eaebf0;
+  font-size: 8px;
+  color: #b0b4c6;
+  letter-spacing: 1.1px;
+  font-weight: 400;
+  opacity: 0.8;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 @media (max-width: 1199px) {
