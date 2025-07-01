@@ -305,10 +305,16 @@ h6 {
   #inicio {
     background-position: right center;
     min-height: 100vh;
+    justify-content: flex-end;
+    padding-bottom: 100px;
   }
   
   #inicio:before {
     min-height: 100vh;
+  }
+  
+  #inicio .hero-container {
+    margin-bottom: 20%;
   }
 }
 
