@@ -301,6 +301,10 @@ h6 {
     line-height: 24px;
     margin-bottom: 30px;
   }
+  
+  #inicio {
+    background-position: right center;
+  }
 }
 
 /*--------------------------------------------------------------
