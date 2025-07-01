@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Jornada TD</title>
+  <title>Fernanda Lopes</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -50,7 +50,7 @@
 
       <div class="profile">
         <img src="assets/img/profile-img.png" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Jornada TD</a></h1>
+        <h1 class="text-light"><a href="index.html">Fernanda Lopes</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://wa.me/5511953979308?text=Ol%C3%A1,%20%20peguei%20seu%20n%C3%BAmero%20atrav%C3%A9s%20do%20site%20Jornada%20TD,%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
           <a href="https://instagram.com/jornada_td?igshid=YmMyMTA2M2Y=" class="instagram"><i class="bx bxl-instagram"></i></a>
@@ -59,7 +59,7 @@
 
       <nav id="navbar" class="nav-menu navbar">
         <ul>
-          <li><a href="#inicio" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Início</span></a></li>
+         <!-- <li><a href="#inicio" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Início</span></a></li> -->
           <li><a href="#sobre" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Quem somos</span></a></li>
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Soluções</span></a></li>
           <li><a href="#testimonials" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Serviços</span></a></li>
@@ -73,9 +73,9 @@
   <!-- ======= Inicio Section ======= -->
   <section id="inicio" class="d-flex flex-column justify-content-center align-items-center">
     <div class="inicio-container" data-aos="fade-in">
-      <h1>Jornada TD</h1>
-      <p><!--I'm--> <span class="typed"
-          data-typed-items="Treinamento, Desenvolvimento, Capacitação, Conteúdos Digitais, E-Learning"></span></p>
+      <h1>Fernanda Lopes</h1>
+      <p><span class="typed"
+          data-typed-items="Consultoria, Desenvolvimento de Lideres, Palestras, Ferramentas de Gestão"></span></p>
     </div>
   </section><!-- End Inicio -->
 
@@ -366,19 +366,67 @@ Conte conosco para criar e produzir materiais de comunicação que fortaleçam a
 
           <div class="col-lg-5 d-flex align-items-stretch">
             <div class="info">
-                <a href="mailto:contato@jornadatd.com.br">
-                <div class="email">
+              <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>contato@jornadatd.com.br</p></a>
+                <p>contato@jornadatd.com.br</p>
               </div>
-
               <div class="phone">
-                <a href="https://wa.me/5511953979308?text=Ol%C3%A1,%20%20peguei%20seu%20n%C3%BAmero%20atrav%C3%A9s%20do%20site%20Jornada%20TD,%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento.">
                 <i class="bi bi-phone"></i>
                 <h4>Telefone e Whatsapp:</h4>
-                <p>+55 (11) 95397-9308</p></a>
+                <p>+55 (11) 95397-9308</p>
               </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form id="contact-form" class="php-email-form w-100">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Nome</label>
+                  <input type="text" name="name" class="form-control" id="name" required maxlength="80">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required maxlength="100">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="country-code">Código do País</label>
+                  <select class="form-control" id="country-code" name="country-code" required>
+                    <option value="55" selected>+55 (Brasil)</option>
+                    <option value="1">+1 (EUA/Canadá)</option>
+                    <option value="351">+351 (Portugal)</option>
+                    <option value="34">+34 (Espanha)</option>
+                    <option value="44">+44 (Reino Unido)</option>
+                    <option value="33">+33 (França)</option>
+                    <option value="49">+49 (Alemanha)</option>
+                    <option value="">Outro</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="phone">Telefone</label>
+                  <input type="tel" class="form-control" name="phone" id="phone" required maxlength="20" pattern="[0-9\-\s\(\)]+">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="message">Mensagem</label>
+                <textarea class="form-control" name="message" id="message" rows="6" required maxlength="350" oninput="this.value = this.value.slice(0, 350)"></textarea>
+                <small id="char-count" class="form-text text-muted">0/350</small>
+              </div>
+              <div class="my-3">
+                <div class="loading">Enviando...</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Sua mensagem foi enviada. Obrigado!</div>
+              </div>
+              <div class="text-center"><button type="submit">Enviar Mensagem</button></div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 
