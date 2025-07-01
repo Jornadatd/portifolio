@@ -262,6 +262,14 @@ h6 {
   min-width: 300px;
 }
 
+#inicio h1, #inicio p, #inicio p span {
+  text-shadow:
+    2px 2px 4px rgba(0,0,0,0.6),
+    -2px -2px 4px rgba(0,0,0,0.6),
+    2px -2px 4px rgba(0,0,0,0.6),
+    -2px 2px 4px rgba(0,0,0,0.6);
+}
+
 #inicio h1 {
   margin: 0 0 10px 0;
   font-size: 52px;
