@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Administração de Artigos - Jornada TD</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- CKEditor 5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/decoupled-document/ckeditor.js"></script>
+    <style>
+        .preview-frame {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+        }
+        .article-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .btn-floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #toolbar-container {
+            position: sticky;
+            top: 0;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-bottom: none;
+            border-radius: 0.375rem 0.375rem 0 0;
+            padding: 10px;
+            z-index: 1000;
+        }
+        #editor-container {
+            min-height: 400px;
+            border: 1px solid #dee2e6;
+            border-radius: 0 0 0.375rem 0.375rem;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .mb-3 {
+            position: relative;
+        }
+        /* Ajuste para o container do editor */
+        .ck.ck-editor__main {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+        /* Estilo para a barra de ferramentas fixa */
+        .ck.ck-toolbar {
+            border: none !important;
+        }
+        figure.image {
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 5px;
+            margin: 0 0 1em;
+        }
+        figure.image img {
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        figure.image figcaption {
+            margin: 8px 0 0;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .image-style-align-left {
+            float: left;
+            margin-right: 20px;
+            max-width: 50%;
+        }
+        .image-style-align-right {
+            float: right;
+            margin-left: 20px;
+            max-width: 50%;
+        }
+        .image-style-align-center {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            max-width: 50%;
+        }
+        /* Estilos para os tamanhos de fonte */
+        .text-tiny {
+            font-size: 0.7em;
+        }
+        .text-small {
+            font-size: 0.85em;
+        }
+        .text-big {
+            font-size: 1.4em;
+        }
+        .text-huge {
+            font-size: 1.8em;
+        }
+        
+        /* Estilos para os títulos */
+        .ck-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.8em;
+        }
+        .ck-content h2 {
+            font-size: 2em;
+            margin-bottom: 0.7em;
+        }
+        .ck-content h3 {
+            font-size: 1.75em;
+            margin-bottom: 0.6em;
+        }
+        .ck-content h4 {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        /* Estilos para blocos coloridos */
+        .article-block {
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .block-primary {
+            background-color: #e8f0fe;
+            border-left: 5px solid #1a73e8;
+        }
+        .block-success {
+            background-color: #e6f4ea;
+            border-left: 5px solid #1e8e3e;
+        }
+        .block-warning {
+            background-color: #fef7e0;
+            border-left: 5px solid #f9ab00;
+        }
+        .block-danger {
+            background-color: #fce8e6;
+            border-left: 5px solid #d93025;
+        }
+        .block-info {
+            background-color: #e8f0fe;
+            border-left: 5px solid #63b3ed;
+        }
+        .block-light {
+            background-color: #f8f9fa;
+            border-left: 5px solid #dee2e6;
+        }
+        .block-dark {
+            background-color: #343a40;
+            border-left: 5px solid #212529;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Administração de Artigos</a>
+            <button class="btn btn-outline-light" type="button" onclick="exportarArtigos()">
+                <i class="bi bi-download"></i> Exportar artigos.js
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Lista de Artigos -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Artigos</h5>
+                        <button class="btn btn-sm btn-success" onclick="novoArtigo()">
+                            <i class="bi bi-plus-lg"></i> Novo
+                        </button>
+                    </div>
+                    <div class="card-body article-list" id="listaArtigos">
+                        <!-- Lista de artigos será inserida aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor -->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Editor</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formArtigo">
+                            <div class="mb-3">
+                                <label class="form-label">ID do Artigo</label>
+                                <input type="number" class="form-control" id="artigoId" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" class="form-control" id="artigoTitulo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Data</label>
+                                <input type="text" class="form-control" id="artigoData" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">URL da Imagem</label>
+                                <input type="text" class="form-control" id="artigoImagem" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Texto Alternativo da Imagem</label>
+                                <input type="text" class="form-control" id="artigoImagemAlt" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Resumo</label>
+                                <textarea class="form-control" id="artigoResumo" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Categorias</label>
+                                <div class="d-flex gap-2 mb-2">
+                                    <select class="form-select" id="artigoCategorias" multiple style="min-width: 200px;"></select>
+                                    <input type="text" class="form-control" id="novaCategoria" placeholder="Nova categoria">
+                                    <button type="button" class="btn btn-outline-primary" id="btnAddCategoria">Adicionar</button>
+                                </div>
+                                <small class="text-muted">Selecione uma ou mais categorias ou adicione uma nova.</small>
+                            </div>
+                            <!-- Caixa de seleção para destaque -->
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="artigoDestaque">
+                                <label class="form-check-label" for="artigoDestaque">Destacar artigo</label>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Conteúdo</label>
+                                <div id="toolbar-container"></div>
+                                <div id="editor-container"></div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                <button type="button" class="btn btn-danger" onclick="excluirArtigo()">Excluir</button>
+                                <button type="button" class="btn btn-secondary" onclick="limparFormulario()">Limpar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Preview</h5>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" onclick="atualizarPreview()">
+                                <i class="bi bi-arrow-clockwise"></i> Atualizar
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" onclick="abrirPreviewNovo()">
+                                <i class="bi bi-box-arrow-up-right"></i> Abrir
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <iframe id="previewFrame" class="preview-frame"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/artigos.js"></script>
+    <script>
+        let editor;
+
+        // Configuração do CKEditor
+        DecoupledEditor
+            .create(document.querySelector('#editor-container'), {
+                toolbar: [
+                    'undo', 'redo',
+                    '|',
+                    'heading',
+                    'fontSize',
+                    '|',
+                    'bold', 'italic', 'strikethrough',
+                    '|',
+                    'fontColor', 'fontBackgroundColor',
+                    '|',
+                    'alignment:left', 'alignment:center', 'alignment:right', 'alignment:justify',
+                    '|',
+                    'bulletedList', 'numberedList',
+                    '|',
+                    'insertImage',
+                    '|',
+                    'blockStyle',
+                    '|',
+                    'link', 'blockQuote'
+                ],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Parágrafo', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Título 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Título 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Título 3', class: 'ck-heading_heading3' }
+                    ]
+                },
+                fontSize: {
+                    options: [
+                        'default',
+                        9,
+                        11,
+                        13,
+                        16,
+                        19,
+                        22,
+                        25
+                    ]
+                },
+                image: {
+                    toolbar: [
+                        'imageStyle:alignLeft',
+                        'imageStyle:alignCenter',
+                        'imageStyle:alignRight',
+                        '|',
+                        'toggleImageCaption',
+                        'imageTextAlternative'
+                    ],
+                    styles: {
+                        options: [
+                            'alignLeft',
+                            'alignCenter',
+                            'alignRight'
+                        ]
+                    }
+                },
+                fontColor: {
+                    colors: [
+                        {
+                            color: 'rgb(0, 0, 0)',
+                            label: 'Preto'
+                        },
+                        {
+                            color: 'rgb(230, 0, 0)',
+                            label: 'Vermelho'
+                        },
+                        {
+                            color: 'rgb(0, 112, 192)',
+                            label: 'Azul'
+                        },
+                        {
+                            color: 'rgb(0, 176, 80)',
+                            label: 'Verde'
+                        },
+                        {
+                            color: 'rgb(255, 192, 0)',
+                            label: 'Amarelo'
+                        },
+                        {
+                            color: 'rgb(112, 48, 160)',
+                            label: 'Roxo'
+                        }
+                    ]
+                },
+                fontBackgroundColor: {
+                    colors: [
+                        {
+                            color: 'rgb(255, 255, 255)',
+                            label: 'Branco'
+                        },
+                        {
+                            color: 'rgb(255, 230, 230)',
+                            label: 'Vermelho claro'
+                        },
+                        {
+                            color: 'rgb(230, 240, 255)',
+                            label: 'Azul claro'
+                        },
+                        {
+                            color: 'rgb(230, 255, 230)',
+                            label: 'Verde claro'
+                        },
+                        {
+                            color: 'rgb(255, 255, 230)',
+                            label: 'Amarelo claro'
+                        },
+                        {
+                            color: 'rgb(240, 230, 255)',
+                            label: 'Roxo claro'
+                        }
+                    ]
+                },
+                // Configuração para permitir divs com classes personalizadas
+                htmlSupport: {
+                    allow: [
+                        {
+                            name: 'div',
+                            attributes: {
+                                class: true
+                            }
+                        }
+                    ]
+                },
+                // Configuração do modelo de dados
+                model: {
+                    schema: {
+                        div: {
+                            allowAttributes: ['class']
+                        }
+                    }
+                }
+            })
+            .then(newEditor => {
+                editor = newEditor;
+                
+                // Adiciona a barra de ferramentas ao container
+                document.querySelector('#toolbar-container').appendChild(editor.ui.view.toolbar.element);
+                
+                // Adiciona botões para blocos coloridos
+                const toolbar = editor.ui.view.toolbar;
+                
+                // Cria o dropdown de estilos de bloco
+                const blockStyleDropdown = document.createElement('select');
+                blockStyleDropdown.className = 'form-select form-select-sm d-inline-block';
+                blockStyleDropdown.style.width = 'auto';
+                blockStyleDropdown.style.marginRight = '10px';
+                blockStyleDropdown.innerHTML = `
+                    <option value="">Estilo do Bloco</option>
+                    <option value="block-primary">Bloco Azul</option>
+                    <option value="block-success">Bloco Verde</option>
+                    <option value="block-warning">Bloco Amarelo</option>
+                    <option value="block-danger">Bloco Vermelho</option>
+                    <option value="block-info">Bloco Info</option>
+                    <option value="block-light">Bloco Claro</option>
+                    <option value="block-dark">Bloco Escuro</option>
+                `;
+
+                // Adiciona o evento de mudança
+                blockStyleDropdown.addEventListener('change', () => {
+                    const selectedClass = blockStyleDropdown.value;
+                    if (selectedClass) {
+                        const selection = editor.model.document.selection;
+                        const range = selection.getFirstRange();
+                        
+                        if (!range.isCollapsed) {
+                            const content = editor.getData().substring(range.start.offset, range.end.offset);
+                            const wrappedContent = `<div class="article-block ${selectedClass}">${content}</div>`;
+                            editor.model.change(writer => {
+                                const viewFragment = editor.data.processor.toView(wrappedContent);
+                                const modelFragment = editor.data.toModel(viewFragment);
+                                editor.model.insertContent(modelFragment, range);
+                            });
+                        }
+                        blockStyleDropdown.value = ''; // Reset selection
+                    }
+                });
+
+                // Adiciona o dropdown à barra de ferramentas
+                const blockStyleContainer = document.createElement('div');
+                blockStyleContainer.className = 'ck ck-toolbar__item';
+                blockStyleContainer.appendChild(blockStyleDropdown);
+                toolbar.element.insertBefore(blockStyleContainer, toolbar.element.querySelector('.ck-toolbar__items').lastChild);
+
+                editor.model.document.on('change:data', () => {
+                    atualizarPreview();
+                });
+
+                // Adiciona manipulador de eventos para upload de imagem via cola ou arraste
+                editor.editing.view.document.on('drop', (evt, data) => {
+                    if (data.dataTransfer.files.length > 0) {
+                        handleImageUpload(data.dataTransfer.files[0]);
+                    }
+                });
+
+                editor.editing.view.document.on('paste', (evt, data) => {
+                    if (data.dataTransfer.files.length > 0) {
+                        handleImageUpload(data.dataTransfer.files[0]);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        // Função para lidar com upload de imagem
+        function handleImageUpload(file) {
+            // Converte a imagem para base64
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                editor.execute('insertImage', { source: imageUrl });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Carregar lista de artigos
+        function carregarListaArtigos() {
+            const lista = document.getElementById('listaArtigos');
+            lista.innerHTML = '';
+            
+            Object.entries(artigos).forEach(([id, artigo]) => {
+                const item = document.createElement('div');
+                item.className = 'p-2 border-bottom';
+                const isDestaque = !!artigo.destaque;
+                item.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-link text-decoration-none" onclick="carregarArtigo(${id})">
+                          ${artigo.titulo}
+                          ${isDestaque ? '<i class=\'bi bi-star-fill text-warning ms-2\' title=\'Artigo em destaque\'></i>' : ''}
+                        </button>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        // Função para obter todas as categorias únicas dos artigos
+        function getTodasCategorias() {
+            const set = new Set();
+            Object.values(artigos).forEach(artigo => {
+                if (artigo.categorias) {
+                    artigo.categorias.forEach(cat => set.add(cat));
+                }
+            });
+            return Array.from(set).sort();
+        }
+
+        // Função para popular o select de categorias
+        function popularCategoriasSelect(categoriasSelecionadas = []) {
+            const select = document.getElementById('artigoCategorias');
+            const todas = getTodasCategorias();
+            select.innerHTML = '';
+            todas.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                if (categoriasSelecionadas.includes(cat)) opt.selected = true;
+                select.appendChild(opt);
+            });
+        }
+
+        // Adicionar nova categoria
+        const btnAddCategoria = document.getElementById('btnAddCategoria');
+        const inputNovaCategoria = document.getElementById('novaCategoria');
+        btnAddCategoria.addEventListener('click', () => {
+            const nova = inputNovaCategoria.value.trim();
+            if (nova) {
+                let select = document.getElementById('artigoCategorias');
+                // Adiciona se não existir
+                if (![...select.options].some(opt => opt.value.toLowerCase() === nova.toLowerCase())) {
+                    const opt = document.createElement('option');
+                    opt.value = nova;
+                    opt.textContent = nova;
+                    opt.selected = true;
+                    select.appendChild(opt);
+                } else {
+                    // Se já existe, apenas seleciona
+                    [...select.options].forEach(opt => {
+                        if (opt.value.toLowerCase() === nova.toLowerCase()) opt.selected = true;
+                    });
+                }
+                inputNovaCategoria.value = '';
+            }
+        });
+
+        // Carregar artigo no formulário (incluindo categorias)
+        function carregarArtigo(id) {
+            const artigo = artigos[id];
+            document.getElementById('artigoId').value = id;
+            document.getElementById('artigoTitulo').value = artigo.titulo;
+            document.getElementById('artigoData').value = artigo.data;
+            document.getElementById('artigoImagem').value = artigo.imagem;
+            document.getElementById('artigoImagemAlt').value = artigo.imagemAlt;
+            document.getElementById('artigoResumo').value = artigo.resumo;
+            editor.setData(artigo.conteudo);
+            popularCategoriasSelect(artigo.categorias || []);
+            // Atualizar o checkbox de destaque
+            document.getElementById('artigoDestaque').checked = !!artigo.destaque;
+            atualizarPreview();
+        }
+
+        // Novo artigo
+        function novoArtigo() {
+            limparFormulario();
+            const novoId = Math.max(...Object.keys(artigos).map(Number)) + 1;
+            document.getElementById('artigoId').value = novoId;
+            popularCategoriasSelect();
+        }
+
+        // Limpar formulário
+        function limparFormulario() {
+            document.getElementById('formArtigo').reset();
+            editor.setData('');
+            popularCategoriasSelect();
+            atualizarPreview();
+        }
+
+        // Salvar artigo (incluindo categorias)
+        document.getElementById('formArtigo').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('artigoId').value;
+            const select = document.getElementById('artigoCategorias');
+            // Sempre garantir array de strings
+            const categorias = Array.from(select.selectedOptions).map(opt => String(opt.value));
+            const destaque = !!document.getElementById('artigoDestaque').checked;
+            // Se este artigo for destaque, remover destaque dos outros
+            if (destaque) {
+                Object.entries(artigos).forEach(([outroId, artigo]) => {
+                    if (outroId !== id) artigo.destaque = false;
+                });
+            }
+            artigos[id] = {
+                titulo: document.getElementById('artigoTitulo').value,
+                imagem: document.getElementById('artigoImagem').value,
+                imagemAlt: document.getElementById('artigoImagemAlt').value,
+                data: document.getElementById('artigoData').value,
+                resumo: document.getElementById('artigoResumo').value,
+                conteudo: editor.getData(),
+                categorias: categorias,
+                destaque: destaque
+            };
+            carregarListaArtigos();
+            alert('Artigo salvo com sucesso!');
+            popularCategoriasSelect(categorias);
+        });
+
+        // Excluir artigo
+        function excluirArtigo() {
+            const id = document.getElementById('artigoId').value;
+            if (id && confirm('Tem certeza que deseja excluir este artigo?')) {
+                delete artigos[id];
+                carregarListaArtigos();
+                limparFormulario();
+                alert('Artigo excluído com sucesso!');
+            }
+        }
+
+        // Atualizar preview
+        function atualizarPreview() {
+            const frame = document.getElementById('previewFrame');
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            const artigo = {
+                titulo: document.getElementById('artigoTitulo').value,
+                imagem: document.getElementById('artigoImagem').value,
+                imagemAlt: document.getElementById('artigoImagemAlt').value,
+                data: document.getElementById('artigoData').value,
+                conteudo: editor ? editor.getData() : ''
+            };
+
+            doc.open();
+            doc.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+                    <style>
+                        body { padding: 20px; }
+                        .article-img img { max-width: 45%; height: auto; display: block; margin: 0 auto; }
+                        
+                        /* Estilos para imagens no conteúdo */
+                        .article-content figure.image {
+                            display: inline-block;
+                            border: 1px solid #dee2e6;
+                            border-radius: 4px;
+                            padding: 5px;
+                            margin: 1em 0;
+                        }
+                        .article-content figure.image img {
+                            margin: 0 auto;
+                            display: block;
+                            max-width: 100%;
+                            height: auto;
+                        }
+                        .article-content figure.image figcaption {
+                            margin: 8px 0 0;
+                            text-align: center;
+                            color: #6c757d;
+                            font-size: 0.9em;
+                        }
+                        .article-content figure.image-style-align-left {
+                            float: left;
+                            margin-right: 20px;
+                            margin-bottom: 20px;
+                            max-width: 50%;
+                        }
+                        .article-content figure.image-style-align-right {
+                            float: right;
+                            margin-left: 20px;
+                            margin-bottom: 20px;
+                            max-width: 50%;
+                        }
+                        .article-content figure.image-style-align-center {
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: block;
+                            max-width: 50%;
+                        }
+                        .article-content::after {
+                            content: '';
+                            display: block;
+                            clear: both;
+                        }
+                        
+                        /* Estilos para blocos coloridos no preview */
+                        .article-block {
+                            padding: 20px;
+                            margin: 15px 0;
+                            border-radius: 8px;
+                        }
+                        .block-primary {
+                            background-color: #e8f0fe;
+                            border-left: 5px solid #1a73e8;
+                        }
+                        .block-success {
+                            background-color: #e6f4ea;
+                            border-left: 5px solid #1e8e3e;
+                        }
+                        .block-warning {
+                            background-color: #fef7e0;
+                            border-left: 5px solid #f9ab00;
+                        }
+                        .block-danger {
+                            background-color: #fce8e6;
+                            border-left: 5px solid #d93025;
+                        }
+                        .block-info {
+                            background-color: #e8f0fe;
+                            border-left: 5px solid #63b3ed;
+                        }
+                        .block-light {
+                            background-color: #f8f9fa;
+                            border-left: 5px solid #dee2e6;
+                        }
+                        .block-dark {
+                            background-color: #343a40;
+                            border-left: 5px solid #212529;
+                            color: white;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <article class="article-single">
+                        <h1 class="mb-4">${artigo.titulo || 'Título do Artigo'}</h1>
+                        <div class="article-meta mb-4">
+                            <span class="date">
+                                <i class="bi bi-calendar-event me-2"></i>
+                                Data de publicação: ${artigo.data || 'Data'}
+                            </span>
+                        </div>
+                        <div class="article-img mb-4">
+                            <img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid">
+                        </div>
+                        <div class="article-content">
+                            ${artigo.conteudo || 'Conteúdo do artigo...'}
+                        </div>
+                    </article>
+                </body>
+                </html>
+            `);
+            doc.close();
+        }
+
+        // Abrir preview em nova janela
+        function abrirPreviewNovo() {
+            const win = window.open('', '_blank');
+            win.document.write(document.getElementById('previewFrame').contentDocument.documentElement.outerHTML);
+        }
+
+        // Exportar artigos.js
+        function exportarArtigos() {
+            // Adiciona destaque: false se não existir
+            Object.values(artigos).forEach(artigo => {
+                if (typeof artigo.destaque !== 'boolean') artigo.destaque = false;
+                if (!Array.isArray(artigo.categorias)) artigo.categorias = [];
+            });
+            const content = 'const artigos = ' + JSON.stringify(artigos, null, 4) + ';';
+            const blob = new Blob([content], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'artigos.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Popular categorias ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            popularCategoriasSelect();
+        });
+
+        // Inicialização
+        window.addEventListener('load', function() {
+            carregarListaArtigos();
+            atualizarPreview();
+        });
+    </script>
+</body>
+</html> 

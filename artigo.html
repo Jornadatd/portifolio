@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Artigo - Jornada TD</title>
+  <title>Fernanda Lopes</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,6 +29,14 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- ======================================================
+  * Template Name: iPortfolio
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
   
   <!-- Estilos para imagens nos artigos -->
   <style>
@@ -144,7 +153,7 @@
 
       <div class="profile">
         <img src="assets/img/profile-img.png" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Jornada TD</a></h1>
+        <h1 class="text-light"><a href="index.html">Fernanda Lopes</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://wa.me/5511953979308?text=Ol%C3%A1,%20%20peguei%20seu%20n%C3%BAmero%20atrav%C3%A9s%20do%20site%20Jornada%20TD,%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
           <a href="https://instagram.com/jornada_td?igshid=YmMyMTA2M2Y=" class="instagram"><i class="bx bxl-instagram"></i></a>
@@ -153,11 +162,11 @@
 
       <nav id="navbar" class="nav-menu navbar">
         <ul>
-          <li><a href="index.html#inicio" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Início</span></a></li>
+          <!-- <li><a href="index.html#inicio" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Início</span></a></li> -->
           <li><a href="index.html#sobre" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Quem somos</span></a></li>
-          <li><a href="index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Soluções</span></a></li>
-          <li><a href="index.html#testimonials" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Serviços</span></a></li>
+          <!--<li><a href="index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Soluções</span></a></li>-->
           <li><a href="index.html#artigos" class="nav-link scrollto"><i class="bx bx-book-reader"></i> <span>Aprenda Conosco</span></a></li>
+          <li><a href="index.html#testimonials" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Serviços</span></a></li>
           <li><a href="index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contato</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -180,6 +189,7 @@
       <div class="container">
         <article class="article-single">
           <h1 id="artigo-heading" class="mb-4"></h1>
+          <div id="artigo-categorias" class="mb-3"></div>
           <div class="article-meta mb-4">
             <span class="date"><i class="bi bi-calendar-event me-2"></i>Data de publicação: 2024</span>
           </div>
@@ -248,6 +258,15 @@
       if (id && artigos[id]) {
         const artigo = artigos[id];
         document.getElementById('artigo-heading').textContent = artigo.titulo;
+        // Exibir categorias
+        const catDiv = document.getElementById('artigo-categorias');
+        if (artigo.categorias && artigo.categorias.length > 0) {
+          catDiv.innerHTML = artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ');
+          catDiv.style.display = '';
+        } else {
+          catDiv.innerHTML = '';
+          catDiv.style.display = 'none';
+        }
         document.getElementById('artigo-img').innerHTML = `<img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid">`;
         document.getElementById('artigo-conteudo').innerHTML = artigo.conteudo;
         document.querySelector('.article-meta .date').innerHTML = `<i class="bi bi-calendar-event me-2"></i>Data de publicação: ${artigo.data}`;

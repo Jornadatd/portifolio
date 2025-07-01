@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fernanda Lopes</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- ======================================================
+  * Template Name: iPortfolio
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  
+  <!-- Estilos para imagens nos artigos -->
+  <style>
+    .article-content figure.image {
+      display: inline-block;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 5px;
+      margin: 1em 0;
+    }
+    .article-content figure.image img {
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .article-content figure.image figcaption {
+      margin: 8px 0 0;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.9em;
+    }
+    .article-content figure.image-style-align-left {
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      max-width: 50%;
+    }
+    .article-content figure.image-style-align-right {
+      float: right;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      max-width: 50%;
+    }
+    .article-content figure.image-style-align-center {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      max-width: 50%;
+    }
+    .article-content::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    /* Estilos para a barra de compartilhamento */
+    .share-bar {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .share-bar a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .share-bar a:hover {
+      transform: scale(1.1);
+    }
+
+    .share-bar .facebook {
+      background: #3b5998;
+    }
+
+    .share-bar .twitter {
+      background: #1da1f2;
+    }
+
+    .share-bar .linkedin {
+      background: #0077b5;
+    }
+
+    .share-bar .whatsapp {
+      background: #25d366;
+    }
+
+    @media (max-width: 768px) {
+      .share-bar {
+        position: fixed;
+        bottom: 20px;
+        top: auto;
+        right: 50%;
+        transform: translateX(50%);
+        flex-direction: row;
+        z-index: 1000;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .main-content {
+        padding-left: 300px;
+      }
+    }
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      .main-content {
+        padding-left: 260px;
+      }
+    }
+    @media (max-width: 991.98px) {
+      .main-content {
+        padding-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="assets/img/profile-img.png" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="index.html">Fernanda Lopes</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://wa.me/5511953979308?text=Ol%C3%A1,%20%20peguei%20seu%20n%C3%BAmero%20atrav%C3%A9s%20do%20site%20Jornada%20TD,%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
+          <a href="https://instagram.com/jornada_td?igshid=YmMyMTA2M2Y=" class="instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <!-- <li><a href="index.html#inicio" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Início</span></a></li> -->
+          <li><a href="index.html#sobre" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Quem somos</span></a></li>
+          <!--<li><a href="index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Soluções</span></a></li>-->
+          <li><a href="index.html#artigos" class="nav-link scrollto"><i class="bx bx-book-reader"></i> <span>Aprenda Conosco</span></a></li>
+          <li><a href="index.html#testimonials" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Serviços</span></a></li>
+          <li><a href="index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contato</span></a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <div class="main-content">
+    <div class="container py-5">
+      <h1 class="mb-4">Artigos</h1>
+      <div id="artigo-destaque"></div>
+      <div id="carrosseis-categorias" class="artigos"></div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/js/artigos.js"></script>
+  <script>
+    function parseData(dataStr) {
+      if (!dataStr) return new Date(0);
+      const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+      const partes = dataStr.toLowerCase().replace('de ', '').split(' ');
+      if (partes.length < 3) return new Date(0);
+      const dia = parseInt(partes[0]);
+      const mes = meses.indexOf(partes[1]);
+      const ano = parseInt(partes[2]);
+      return new Date(ano, mes, dia);
+    }
+
+    const artigosArr = Object.entries(artigos).map(([id, artigo]) => ({ id, ...artigo }));
+    artigosArr.sort((a, b) => parseData(b.data) - parseData(a.data));
+    // Procurar artigo com destaque = true
+    let artigoMaisRecente = artigosArr.find(a => a.destaque === true);
+    // Se não houver, exibe o mais recente
+    if (!artigoMaisRecente) artigoMaisRecente = artigosArr[0];
+    const destaqueDiv = document.getElementById('artigo-destaque');
+    destaqueDiv.innerHTML = `
+      <div class="mb-2" style="font-weight: bold; color: #173b6c; font-size: 1.2rem;">Artigo em Destaque</div>
+      <div class="artigo-destaque row g-0 align-items-center">
+        <div class="col-md-5">
+          <img src="${artigoMaisRecente.imagem}" alt="${artigoMaisRecente.imagemAlt}" class="img-fluid">
+        </div>
+        <div class="col-md-7 p-4">
+          <h2>${artigoMaisRecente.titulo}</h2>
+          <div class="mb-2">
+            ${(artigoMaisRecente.categorias||[]).map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ')}
+          </div>
+          <div class="mb-2 text-muted"><i class="bi bi-calendar-event me-1"></i>${artigoMaisRecente.data}</div>
+          <p>${artigoMaisRecente.resumo}</p>
+          <a href="artigo.html?id=${artigoMaisRecente.id}" class="btn btn-primary">Ler artigo</a>
+        </div>
+      </div>
+    `;
+
+    const categoriasMap = {};
+    artigosArr.forEach(artigo => {
+      (artigo.categorias||['Sem Categoria']).forEach(cat => {
+        if (!categoriasMap[cat]) categoriasMap[cat] = [];
+        categoriasMap[cat].push(artigo);
+      });
+    });
+
+    // Remover o artigo em destaque das listas dos carrosseis
+    Object.values(categoriasMap).forEach(arr => {
+      const idx = arr.findIndex(a => a.id === artigoMaisRecente.id);
+      if (idx !== -1) arr.splice(idx, 1);
+    });
+
+    const carrosseisDiv = document.getElementById('carrosseis-categorias');
+    Object.entries(categoriasMap).forEach(([cat, artigosCat], i) => {
+      if (artigosCat.length === 0) return;
+      const carrosselId = `swiper-categoria-${i}`;
+      carrosseisDiv.innerHTML += `
+        <div class="categoria-titulo" style="font-weight: bold; color: #173b6c; font-size: 1.2rem;">${cat}</div>
+        <div class="artigos-slider swiper" style="padding: 0 40px;">
+          <div class="swiper-wrapper" id="artigos-container-${i}">
+            ${artigosCat.map(artigo => `
+              <div class="swiper-slide">
+                <div class="artigo-item px-4">
+                  <div class="artigo-img mb-4">
+                    <img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid" style="height: 180px; object-fit: cover; border-radius: 5px; width: 100%;">
+                  </div>
+                  <h3><a href="artigo.html?id=${artigo.id}">${artigo.titulo}</a></h3>
+                  <div class="artigo-meta mb-3 d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="artigo-categorias">
+                      ${(artigo.categorias && artigo.categorias.length > 0) ? artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join('') : ''}
+                    </div>
+                    <span class="date text-end"><i class="bi bi-calendar-event me-2"></i>${artigo.data}</span>
+                  </div>
+                  <p>${artigo.resumo}</p>
+                  <a href="artigo.html?id=${artigo.id}" class="btn btn-outline-primary">Leia mais</a>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" style="left: 0;"></div>
+          <div class="swiper-button-next" style="right: 0;"></div>
+        </div>
+      `;
+    });
+
+    setTimeout(() => {
+      document.querySelectorAll('.artigos-slider').forEach(swiperEl => {
+        const slidesCount = swiperEl.querySelectorAll('.swiper-slide').length;
+        new Swiper(swiperEl, {
+          slidesPerView: 1,
+          spaceBetween: 50,
+          loop: slidesCount > 1,
+          pagination: {
+            el: swiperEl.querySelector('.swiper-pagination'),
+            clickable: true
+          },
+          navigation: {
+            nextEl: swiperEl.querySelector('.swiper-button-next'),
+            prevEl: swiperEl.querySelector('.swiper-button-prev'),
+          },
+          breakpoints: {
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 80
+            }
+          }
+        });
+      });
+    }, 100);
+  </script>
+
+<footer id="footer">
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>iPortfolio</span></strong>
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/typed.js/typed.umd.js"></script>
+<script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+</body>
+</html> 

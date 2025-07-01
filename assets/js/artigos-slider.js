@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid">
                     </div>
                     <h3><a href="artigo.html?id=${id}">${artigo.titulo}</a></h3>
-                    <div class="artigo-meta mb-3">
-                        <span class="date"><i class="bi bi-calendar-event me-2"></i>${artigo.data}</span>
+                    <div class="artigo-meta mb-3 d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="artigo-categorias">
+                            ${(artigo.categorias && artigo.categorias.length > 0) ? artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join('') : ''}
+                        </div>
+                        <span class="date text-end"><i class="bi bi-calendar-event me-2"></i>${artigo.data}</span>
                     </div>
                     <p>${artigo.resumo}</p>
                     <a href="artigo.html?id=${id}" class="btn btn-outline-primary">Leia mais</a>
