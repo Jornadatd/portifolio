@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const artigosContainer = document.getElementById('artigos-container');
     
+    // Usar a função do utils.js para obter artigos publicados
+    const artigosPublicados = getArtigosPublicados();
+    
     // Função para criar o HTML de um artigo
     function criarArtigoHTML(id, artigo) {
         return `
@@ -23,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Buscar artigo em destaque
-    let artigoDestaque = artigos.find(a => a.destaque === true);
+    // Buscar artigo em destaque (apenas entre os publicados)
+    let artigoDestaque = artigosPublicados.find(a => a.destaque === true);
     if (!artigoDestaque) {
-        const maiorId = Math.max(...artigos.map(a => a.id));
-        artigoDestaque = artigos.find(a => a.id === maiorId);
+        const maiorId = Math.max(...artigosPublicados.map(a => a.id));
+        artigoDestaque = artigosPublicados.find(a => a.id === maiorId);
     }
 
     // Exibir artigo de destaque
@@ -51,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Carregar todos os artigos MENOS o destaque
-    artigos
+    // Carregar todos os artigos publicados MENOS o destaque
+    artigosPublicados
       .slice()
       .sort((a, b) => b.id - a.id)
       .filter(artigo => artigo.id !== artigoDestaque.id)

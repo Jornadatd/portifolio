@@ -1,19 +1,11 @@
-function parseData(dataStr) {
-  if (!dataStr) return new Date(0);
-  const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-  const partes = dataStr.toLowerCase().replace('de ', '').split(' ');
-  if (partes.length < 3) return new Date(0);
-  const dia = parseInt(partes[0]);
-  const mes = meses.indexOf(partes[1]);
-  const ano = parseInt(partes[2]);
-  return new Date(ano, mes, dia);
-}
+// Usar a função do utils.js para obter artigos publicados
+const artigosPublicados = getArtigosPublicados();
 
-// Buscar artigo em destaque
-let artigoMaisRecente = artigos.find(a => a.destaque === true);
+// Buscar artigo em destaque (apenas entre os publicados)
+let artigoMaisRecente = artigosPublicados.find(a => a.destaque === true);
 if (!artigoMaisRecente) {
-  const maiorId = Math.max(...artigos.map(a => a.id));
-  artigoMaisRecente = artigos.find(a => a.id === maiorId);
+  const maiorId = Math.max(...artigosPublicados.map(a => a.id));
+  artigoMaisRecente = artigosPublicados.find(a => a.id === maiorId);
 }
 const destaqueDiv = document.getElementById('artigo-destaque');
 destaqueDiv.innerHTML = `
@@ -33,9 +25,9 @@ destaqueDiv.innerHTML = `
   </div>
 `;
 
-// Montar categorias
+// Montar categorias (apenas com artigos publicados)
 const categoriasMap = {};
-artigos.forEach(artigo => {
+artigosPublicados.forEach(artigo => {
   (artigo.categorias||['Sem Categoria']).forEach(cat => {
     if (!categoriasMap[cat]) categoriasMap[cat] = [];
     categoriasMap[cat].push(artigo);

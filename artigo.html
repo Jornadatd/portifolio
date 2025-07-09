@@ -248,6 +248,7 @@
 
   <!-- Dados dos artigos -->
   <script src="assets/js/artigos.js"></script>
+  <script src="assets/js/utils.js"></script>
 
   <!-- Script para carregar o artigo dinamicamente -->
   <script>
@@ -259,6 +260,13 @@
       if (id) {
         const artigo = artigos.find(a => a.id === id);
         if (artigo) {
+          // Verificar se o artigo já foi publicado
+          if (!isArtigoPublicado(artigo)) {
+            // Artigo ainda não foi publicado, redirecionar
+            window.location.href = 'index.html#artigos';
+            return;
+          }
+          
           document.getElementById('artigo-heading').textContent = artigo.titulo;
           // Exibir categorias
           const catDiv = document.getElementById('artigo-categorias');
