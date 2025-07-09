@@ -501,27 +501,29 @@
         function carregarListaArtigos() {
             const lista = document.getElementById('listaArtigos');
             lista.innerHTML = '';
-            
-            Object.entries(artigos).forEach(([id, artigo]) => {
-                const item = document.createElement('div');
-                item.className = 'p-2 border-bottom';
-                const isDestaque = !!artigo.destaque;
-                item.innerHTML = `
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button class="btn btn-link text-decoration-none" onclick="carregarArtigo(${id})">
-                          ${artigo.titulo}
-                          ${isDestaque ? '<i class=\'bi bi-star-fill text-warning ms-2\' title=\'Artigo em destaque\'></i>' : ''}
-                        </button>
-                    </div>
-                `;
-                lista.appendChild(item);
-            });
+            artigos
+                .slice()
+                .sort((a, b) => b.id - a.id)
+                .forEach(artigo => {
+                    const item = document.createElement('div');
+                    item.className = 'p-2 border-bottom';
+                    const isDestaque = !!artigo.destaque;
+                    item.innerHTML = `
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-link text-decoration-none" onclick="carregarArtigo(${artigo.id})">
+                              ${artigo.titulo}
+                              ${isDestaque ? '<i class=\'bi bi-star-fill text-warning ms-2\' title=\'Artigo em destaque\'></i>' : ''}
+                            </button>
+                        </div>
+                    `;
+                    lista.appendChild(item);
+                });
         }
 
         // Função para obter todas as categorias únicas dos artigos
         function getTodasCategorias() {
             const set = new Set();
-            Object.values(artigos).forEach(artigo => {
+            artigos.forEach(artigo => {
                 if (artigo.categorias) {
                     artigo.categorias.forEach(cat => set.add(cat));
                 }
@@ -569,8 +571,9 @@
 
         // Carregar artigo no formulário (incluindo categorias)
         function carregarArtigo(id) {
-            const artigo = artigos[id];
-            document.getElementById('artigoId').value = id;
+            const artigo = artigos.find(a => a.id == id);
+            if (!artigo) return;
+            document.getElementById('artigoId').value = artigo.id;
             document.getElementById('artigoTitulo').value = artigo.titulo;
             document.getElementById('artigoData').value = artigo.data;
             document.getElementById('artigoImagem').value = artigo.imagem;
@@ -578,7 +581,6 @@
             document.getElementById('artigoResumo').value = artigo.resumo;
             editor.setData(artigo.conteudo);
             popularCategoriasSelect(artigo.categorias || []);
-            // Atualizar o checkbox de destaque
             document.getElementById('artigoDestaque').checked = !!artigo.destaque;
             atualizarPreview();
         }
@@ -586,7 +588,10 @@
         // Novo artigo
         function novoArtigo() {
             limparFormulario();
-            const novoId = Math.max(...Object.keys(artigos).map(Number)) + 1;
+            let novoId = 1;
+            if (artigos.length > 0) {
+                novoId = Math.max(...artigos.map(a => a.id)) + 1;
+            }
             document.getElementById('artigoId').value = novoId;
             popularCategoriasSelect();
         }
@@ -602,18 +607,19 @@
         // Salvar artigo (incluindo categorias)
         document.getElementById('formArtigo').addEventListener('submit', function(e) {
             e.preventDefault();
-            const id = document.getElementById('artigoId').value;
+            const id = Number(document.getElementById('artigoId').value);
             const select = document.getElementById('artigoCategorias');
-            // Sempre garantir array de strings
             const categorias = Array.from(select.selectedOptions).map(opt => String(opt.value));
             const destaque = !!document.getElementById('artigoDestaque').checked;
             // Se este artigo for destaque, remover destaque dos outros
             if (destaque) {
-                Object.entries(artigos).forEach(([outroId, artigo]) => {
-                    if (outroId !== id) artigo.destaque = false;
+                artigos.forEach(artigo => {
+                    if (artigo.id !== id) artigo.destaque = false;
                 });
             }
-            artigos[id] = {
+            const artigoExistente = artigos.find(a => a.id === id);
+            const novoArtigo = {
+                id: id,
                 titulo: document.getElementById('artigoTitulo').value,
                 imagem: document.getElementById('artigoImagem').value,
                 imagemAlt: document.getElementById('artigoImagemAlt').value,
@@ -623,6 +629,13 @@
                 categorias: categorias,
                 destaque: destaque
             };
+            if (artigoExistente) {
+                // Atualizar artigo existente
+                Object.assign(artigoExistente, novoArtigo);
+            } else {
+                // Adicionar novo artigo
+                artigos.push(novoArtigo);
+            }
             carregarListaArtigos();
             alert('Artigo salvo com sucesso!');
             popularCategoriasSelect(categorias);
@@ -630,9 +643,10 @@
 
         // Excluir artigo
         function excluirArtigo() {
-            const id = document.getElementById('artigoId').value;
-            if (id && confirm('Tem certeza que deseja excluir este artigo?')) {
-                delete artigos[id];
+            const id = Number(document.getElementById('artigoId').value);
+            const idx = artigos.findIndex(a => a.id === id);
+            if (idx !== -1 && confirm('Tem certeza que deseja excluir este artigo?')) {
+                artigos.splice(idx, 1);
                 carregarListaArtigos();
                 limparFormulario();
                 alert('Artigo excluído com sucesso!');
@@ -773,8 +787,7 @@
 
         // Exportar artigos.js
         function exportarArtigos() {
-            // Adiciona destaque: false se não existir
-            Object.values(artigos).forEach(artigo => {
+            artigos.forEach(artigo => {
                 if (typeof artigo.destaque !== 'boolean') artigo.destaque = false;
                 if (!Array.isArray(artigo.categorias)) artigo.categorias = [];
             });
