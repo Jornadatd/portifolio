@@ -9,12 +9,12 @@ function parseData(dataStr) {
   return new Date(ano, mes, dia);
 }
 
-const artigosArr = Object.entries(artigos).map(([id, artigo]) => ({ id, ...artigo }));
-artigosArr.sort((a, b) => parseData(b.data) - parseData(a.data));
-// Procurar artigo com destaque = true
-let artigoMaisRecente = artigosArr.find(a => a.destaque === true);
-// Se não houver, exibe o mais recente
-if (!artigoMaisRecente) artigoMaisRecente = artigosArr[0];
+// Buscar artigo em destaque
+let artigoMaisRecente = artigos.find(a => a.destaque === true);
+if (!artigoMaisRecente) {
+  const maiorId = Math.max(...artigos.map(a => a.id));
+  artigoMaisRecente = artigos.find(a => a.id === maiorId);
+}
 const destaqueDiv = document.getElementById('artigo-destaque');
 destaqueDiv.innerHTML = `
   <div class="artigo-destaque row g-0 align-items-center">
@@ -33,23 +33,24 @@ destaqueDiv.innerHTML = `
   </div>
 `;
 
+// Montar categorias
 const categoriasMap = {};
-artigosArr.forEach(artigo => {
+artigos.forEach(artigo => {
   (artigo.categorias||['Sem Categoria']).forEach(cat => {
     if (!categoriasMap[cat]) categoriasMap[cat] = [];
     categoriasMap[cat].push(artigo);
   });
 });
-
 // Remover o artigo em destaque das listas dos carrosseis
 Object.values(categoriasMap).forEach(arr => {
   const idx = arr.findIndex(a => a.id === artigoMaisRecente.id);
   if (idx !== -1) arr.splice(idx, 1);
 });
-
 const carrosseisDiv = document.getElementById('carrosseis-categorias');
 Object.entries(categoriasMap).forEach(([cat, artigosCat], i) => {
   if (artigosCat.length === 0) return;
+  // Ordenar por id decrescente
+  artigosCat.sort((a, b) => b.id - a.id);
   const carrosselId = `swiper-categoria-${i}`;
   carrosseisDiv.innerHTML += `
     <div class="categoria-titulo">${cat}</div>

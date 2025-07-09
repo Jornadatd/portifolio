@@ -23,10 +23,42 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Carregar todos os artigos
-    Object.entries(artigos).forEach(([id, artigo]) => {
-        artigosContainer.innerHTML += criarArtigoHTML(id, artigo);
-    });
+    // Buscar artigo em destaque
+    let artigoDestaque = artigos.find(a => a.destaque === true);
+    if (!artigoDestaque) {
+        const maiorId = Math.max(...artigos.map(a => a.id));
+        artigoDestaque = artigos.find(a => a.id === maiorId);
+    }
+
+    // Exibir artigo de destaque
+    const destaqueContainer = document.getElementById('artigo-destaque-slider');
+    if (destaqueContainer && artigoDestaque) {
+        destaqueContainer.innerHTML = `
+            <div class="artigo-destaque row g-0 align-items-center mb-4">
+                <div class="col-md-5">
+                    <img src="${artigoDestaque.imagem}" alt="${artigoDestaque.imagemAlt}" class="img-fluid">
+                </div>
+                <div class="col-md-7 p-4">
+                    <h2>${artigoDestaque.titulo}</h2>
+                    <div class="mb-2">
+                        ${(artigoDestaque.categorias||[]).map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ')}
+                    </div>
+                    <div class="mb-2 text-muted"><i class="bi bi-calendar-event me-1"></i>${artigoDestaque.data}</div>
+                    <p>${artigoDestaque.resumo}</p>
+                    <a href="artigo.html?id=${artigoDestaque.id}" class="btn btn-primary">Ler artigo</a>
+                </div>
+            </div>
+        `;
+    }
+
+    // Carregar todos os artigos MENOS o destaque
+    artigos
+      .slice()
+      .sort((a, b) => b.id - a.id)
+      .filter(artigo => artigo.id !== artigoDestaque.id)
+      .forEach(artigo => {
+        artigosContainer.innerHTML += criarArtigoHTML(artigo.id, artigo);
+      });
 
     // Inicializar o Swiper
     new Swiper('.artigos-slider', {

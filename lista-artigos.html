@@ -201,59 +201,49 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/js/artigos.js"></script>
   <script>
-    function parseData(dataStr) {
-      if (!dataStr) return new Date(0);
-      const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-      const partes = dataStr.toLowerCase().replace('de ', '').split(' ');
-      if (partes.length < 3) return new Date(0);
-      const dia = parseInt(partes[0]);
-      const mes = meses.indexOf(partes[1]);
-      const ano = parseInt(partes[2]);
-      return new Date(ano, mes, dia);
+    // Buscar artigo em destaque: primeiro com destaque:true, senão maior id
+    let artigoDestaque = artigos.find(a => a.destaque === true);
+    if (!artigoDestaque) {
+      const maiorId = Math.max(...artigos.map(a => a.id));
+      artigoDestaque = artigos.find(a => a.id === maiorId);
     }
-
-    const artigosArr = Object.entries(artigos).map(([id, artigo]) => ({ id, ...artigo }));
-    artigosArr.sort((a, b) => parseData(b.data) - parseData(a.data));
-    // Procurar artigo com destaque = true
-    let artigoMaisRecente = artigosArr.find(a => a.destaque === true);
-    // Se não houver, exibe o mais recente
-    if (!artigoMaisRecente) artigoMaisRecente = artigosArr[0];
     const destaqueDiv = document.getElementById('artigo-destaque');
     destaqueDiv.innerHTML = `
       <div class="mb-2" style="font-weight: bold; color: #173b6c; font-size: 1.2rem;">Artigo em Destaque</div>
       <div class="artigo-destaque row g-0 align-items-center">
         <div class="col-md-5">
-          <img src="${artigoMaisRecente.imagem}" alt="${artigoMaisRecente.imagemAlt}" class="img-fluid">
+          <img src="${artigoDestaque.imagem}" alt="${artigoDestaque.imagemAlt}" class="img-fluid">
         </div>
         <div class="col-md-7 p-4">
-          <h2>${artigoMaisRecente.titulo}</h2>
+          <h2>${artigoDestaque.titulo}</h2>
           <div class="mb-2">
-            ${(artigoMaisRecente.categorias||[]).map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ')}
+            ${(artigoDestaque.categorias||[]).map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ')}
           </div>
-          <div class="mb-2 text-muted"><i class="bi bi-calendar-event me-1"></i>${artigoMaisRecente.data}</div>
-          <p>${artigoMaisRecente.resumo}</p>
-          <a href="artigo.html?id=${artigoMaisRecente.id}" class="btn btn-primary">Ler artigo</a>
+          <div class="mb-2 text-muted"><i class="bi bi-calendar-event me-1"></i>${artigoDestaque.data}</div>
+          <p>${artigoDestaque.resumo}</p>
+          <a href="artigo.html?id=${artigoDestaque.id}" class="btn btn-primary">Ler artigo</a>
         </div>
       </div>
     `;
 
+    // Montar categorias
     const categoriasMap = {};
-    artigosArr.forEach(artigo => {
+    artigos.forEach(artigo => {
       (artigo.categorias||['Sem Categoria']).forEach(cat => {
         if (!categoriasMap[cat]) categoriasMap[cat] = [];
         categoriasMap[cat].push(artigo);
       });
     });
-
     // Remover o artigo em destaque das listas dos carrosseis
     Object.values(categoriasMap).forEach(arr => {
-      const idx = arr.findIndex(a => a.id === artigoMaisRecente.id);
+      const idx = arr.findIndex(a => a.id === artigoDestaque.id);
       if (idx !== -1) arr.splice(idx, 1);
     });
-
     const carrosseisDiv = document.getElementById('carrosseis-categorias');
     Object.entries(categoriasMap).forEach(([cat, artigosCat], i) => {
       if (artigosCat.length === 0) return;
+      // Ordenar por id decrescente
+      artigosCat.sort((a, b) => b.id - a.id);
       const carrosselId = `swiper-categoria-${i}`;
       carrosseisDiv.innerHTML += `
         <div class="section-bg p-4 mb-5 rounded-3">
@@ -286,7 +276,6 @@
         </div>
       `;
     });
-
     setTimeout(() => {
       document.querySelectorAll('.artigos-slider').forEach(swiperEl => {
         const slidesCount = swiperEl.querySelectorAll('.swiper-slide').length;
