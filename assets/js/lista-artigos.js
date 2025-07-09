@@ -10,7 +10,12 @@ if (!artigoMaisRecente) {
 const destaqueDiv = document.getElementById('artigo-destaque');
 destaqueDiv.innerHTML = `
   <div class="artigo-destaque row g-0 align-items-center">
-    <div class="col-md-5">
+    <div class="col-md-5 position-relative">
+      <div class="destaque-badge">
+        <span class="badge bg-warning text-dark px-3 py-2">
+          <i class="bi bi-star-fill me-1"></i>Artigo em Destaque!
+        </span>
+      </div>
       <img src="${artigoMaisRecente.imagem}" alt="${artigoMaisRecente.imagemAlt}" class="img-fluid">
     </div>
     <div class="col-md-7 p-4">

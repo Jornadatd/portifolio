@@ -38,7 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (destaqueContainer && artigoDestaque) {
         destaqueContainer.innerHTML = `
             <div class="artigo-destaque row g-0 align-items-center mb-4">
-                <div class="col-md-5">
+                <div class="col-md-5 position-relative">
+                    <div class="destaque-badge">
+                        <span class="badge bg-warning text-dark px-3 py-2">
+                            <i class="bi bi-star-fill me-1"></i>Artigo em Destaque!
+                        </span>
+                    </div>
                     <img src="${artigoDestaque.imagem}" alt="${artigoDestaque.imagemAlt}" class="img-fluid">
                 </div>
                 <div class="col-md-7 p-4">
@@ -54,14 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Carregar todos os artigos publicados MENOS o destaque
-    artigosPublicados
-      .slice()
-      .sort((a, b) => b.id - a.id)
-      .filter(artigo => artigo.id !== artigoDestaque.id)
-      .forEach(artigo => {
+    // Obter os 5 últimos artigos (excluindo o destaque)
+    const artigosParaCarrossel = artigosPublicados
+        .filter(artigo => artigo.id !== artigoDestaque.id) // Excluir o artigo em destaque
+        .sort((a, b) => b.id - a.id) // Ordenar por ID decrescente (mais recentes primeiro)
+        .slice(0, 4); // Pegar apenas os 4 mais recentes (total de 5 com o destaque)
+
+    // Carregar os artigos no carrossel
+    artigosParaCarrossel.forEach(artigo => {
         artigosContainer.innerHTML += criarArtigoHTML(artigo.id, artigo);
-      });
+    });
 
     // Inicializar o Swiper
     new Swiper('.artigos-slider', {
