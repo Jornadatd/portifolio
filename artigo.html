@@ -254,26 +254,31 @@
     // Função para carregar o artigo baseado no ID da URL
     function carregarArtigo() {
       const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get('id');
+      const id = parseInt(urlParams.get('id'));
       
-      if (id && artigos[id]) {
-        const artigo = artigos[id];
-        document.getElementById('artigo-heading').textContent = artigo.titulo;
-        // Exibir categorias
-        const catDiv = document.getElementById('artigo-categorias');
-        if (artigo.categorias && artigo.categorias.length > 0) {
-          catDiv.innerHTML = artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ');
-          catDiv.style.display = '';
+      if (id) {
+        const artigo = artigos.find(a => a.id === id);
+        if (artigo) {
+          document.getElementById('artigo-heading').textContent = artigo.titulo;
+          // Exibir categorias
+          const catDiv = document.getElementById('artigo-categorias');
+          if (artigo.categorias && artigo.categorias.length > 0) {
+            catDiv.innerHTML = artigo.categorias.map(cat => `<span class='badge bg-primary me-1'>${cat}</span>`).join(' ');
+            catDiv.style.display = '';
+          } else {
+            catDiv.innerHTML = '';
+            catDiv.style.display = 'none';
+          }
+          document.getElementById('artigo-img').innerHTML = `<img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid">`;
+          document.getElementById('artigo-conteudo').innerHTML = artigo.conteudo;
+          document.querySelector('.article-meta .date').innerHTML = `<i class="bi bi-calendar-event me-2"></i>Data de publicação: ${artigo.data}`;
+          document.title = `${artigo.titulo} - Jornada TD`;
         } else {
-          catDiv.innerHTML = '';
-          catDiv.style.display = 'none';
+          // Redirecionar para a página inicial se o artigo não for encontrado
+          window.location.href = 'index.html#artigos';
         }
-        document.getElementById('artigo-img').innerHTML = `<img src="${artigo.imagem}" alt="${artigo.imagemAlt}" class="img-fluid">`;
-        document.getElementById('artigo-conteudo').innerHTML = artigo.conteudo;
-        document.querySelector('.article-meta .date').innerHTML = `<i class="bi bi-calendar-event me-2"></i>Data de publicação: ${artigo.data}`;
-        document.title = `${artigo.titulo} - Jornada TD`;
       } else {
-        // Redirecionar para a página inicial se o artigo não for encontrado
+        // Redirecionar para a página inicial se não houver ID
         window.location.href = 'index.html#artigos';
       }
     }
