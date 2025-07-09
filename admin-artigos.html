@@ -510,7 +510,8 @@
                     const isDestaque = !!artigo.destaque;
                     item.innerHTML = `
                         <div class="d-flex justify-content-between align-items-center">
-                            <button class="btn btn-link text-decoration-none" onclick="carregarArtigo(${artigo.id})">
+                            <button class="btn btn-link text-decoration-none text-start w-100" onclick="carregarArtigo(${artigo.id})" style="text-align: left;">
+                              <small class="text-muted me-2">#${artigo.id}</small>
                               ${artigo.titulo}
                               ${isDestaque ? '<i class=\'bi bi-star-fill text-warning ms-2\' title=\'Artigo em destaque\'></i>' : ''}
                             </button>
