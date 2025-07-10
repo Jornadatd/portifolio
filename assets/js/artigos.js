@@ -212,7 +212,7 @@ const artigos = [
         "titulo": "Carreiras - artigo2",
         "imagem": "./assets/img/artigos/artigo8.webp",
         "imagemAlt": "Imagem do Artigo 8",
-        "data": "03 de Julho de 2025",
+        "data": "08 de Julho de 2025",
         "resumo": "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum...",
         "conteudo": "<h2 style=\"margin-left:0px;\">What is Lorem Ipsum?</h2><p style=\"margin-left:0px;text-align:justify;\"><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><h2 style=\"margin-left:0px;\">Why do we use it?</h2><p style=\"margin-left:0px;text-align:justify;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>",
         "categorias": [
@@ -222,7 +222,7 @@ const artigos = [
     },
     {
         "id": 18,
-        "titulo": "Carreiras - artigo3",
+        "titulo": "Artigo Agendado",
         "imagem": "./assets/img/artigos/artigo8.webp",
         "imagemAlt": "Imagem do Artigo 8",
         "data": "10 de Julho de 2025",
@@ -235,7 +235,7 @@ const artigos = [
     },
     {
         "id": 19,
-        "titulo": "Artigo 19",
+        "titulo": "Artigo Agendado 2",
         "imagem": "./assets/img/artigos/artigo1.webp",
         "imagemAlt": "Artigo 19",
         "data": "11 de Julho de 2025",

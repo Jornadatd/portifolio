@@ -191,9 +191,9 @@
 
   <div class="main-content">
     <div class="container py-5">
-      <h1 class="mb-4 px-4" style="padding-left:40px;">Artigos</h1>
-      <div id="artigo-destaque" class="px-4" style="padding-left:40px;"></div>
-      <div id="carrosseis-categorias" class="artigos"></div>
+      <h1 class="mb-4 px-4" style="padding-left:40px;" data-aos="fade-up">Artigos</h1>
+      <div id="artigo-destaque" class="px-4" style="padding-left:40px;" data-aos="fade-up" data-aos-delay="100"></div>
+      <div id="carrosseis-categorias" class="artigos" data-aos="fade-up" data-aos-delay="200"></div>
     </div>
   </div>
 
@@ -202,6 +202,18 @@
   <script src="assets/js/artigos.js"></script>
   <script src="assets/js/utils.js"></script>
   <script src="assets/js/lista-artigos.js"></script>
+
+  <!-- Inicializar AOS -->
+  <script>
+    window.addEventListener('load', () => {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      });
+    });
+  </script>
 
 <footer id="footer">
   <div class="container">
