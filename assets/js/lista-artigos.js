@@ -25,7 +25,7 @@ destaqueDiv.innerHTML = `
       </div>
       <div class="mb-2 text-muted"><i class="bi bi-calendar-event me-1"></i>${artigoMaisRecente.data}</div>
       <p>${artigoMaisRecente.resumo}</p>
-      <a href="artigo.html?id=${artigoMaisRecente.id}" class="btn btn-primary">Ler artigo</a>
+      <a href="artigo.html?id=${artigoMaisRecente.id}" class="btn btn-primary">Leia mais</a>
     </div>
   </div>
 `;

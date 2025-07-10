@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="mb-2 text-muted"><i class="bi bi-calendar-event me-1"></i>${artigoDestaque.data}</div>
                     <p>${artigoDestaque.resumo}</p>
-                    <a href="artigo.html?id=${artigoDestaque.id}" class="btn btn-primary">Ler artigo</a>
+                    <a href="artigo.html?id=${artigoDestaque.id}" class="btn btn-primary">Leia mais</a>
                 </div>
             </div>
         `;
